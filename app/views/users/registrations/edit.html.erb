@@ -1,0 +1,64 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+  <div class="field">
+    <%= f.label :プロフィール画像 %>
+    <%= f.file_field :image %>
+  </div>
+  
+
+  <!--アカウント編集時に名前を入力できるようにフォームを追加-->
+  <div class="field">
+    <%= f.label :名前 %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <!--アカウント編集時にプロフィールを入力できるようにフォームを追加-->
+  <div class="field">
+    <%= f.label :プロフィール %><br />
+    <%= f.text_area :profile, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :学年 %><br />
+  　<%= f.select :user_grade, [["1年", "1"], ["2年", "2"], ["3年","3"], ["4年","4"], ["その他","5"]], include_blank: "学年を選択して下さい", autofocus: true  %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :新しいパスワード %> <i>(変更不要な時は入力不要です)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :新しいパスワードの確認 %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :現在のパスワード %> <i>(新しいパスワードにしたときは必ずご入力ください)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "編集" %>
+  </div>
+<% end %>
+
+<br>
+<%= link_to "アカウントを削除する",user_path(current_user.id), class: "destroy-user", data: { confirm: "本当にこのアカウントを削除してよろしいですか？（すべてのデータが削除され、復元されることはありません。）" },method: :delete %>
+
+<%= link_to "戻る", :back %>

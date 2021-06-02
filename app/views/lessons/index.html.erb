@@ -1,0 +1,44 @@
+<h1>CONNECTION</h1>
+
+<% if user_signed_in? %>
+<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<%= link_to "マイページへ", user_path(current_user.id) %>　
+<% end %>
+<%= link_to "新規投稿", new_lesson_path %>
+<h3>投稿を検索</h3>
+ <%= form_tag({controller:"lessons",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+<div class="lessons-container">
+  <% @lessons.each do |t| %>
+    <div class="lesson">
+      年度:<%= t.academic_year %>
+      開講区分:<%= t.quarter %>
+      授業名:<%= t.lesson_name %>
+      教授名:<%= t.teacher_name %>
+      曜日:<%= t.day7 %>
+      時限:<%=t.period %>
+        <% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+            <%= link_to lesson_like_path(id: t.id, lesson_id: t.id), method: :delete do %>
+              <i class="fas fa-bookmark"></i><%= t.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to lesson_likes_path(id: t.id, lesson_id: t.id), method: :post do %>
+              <i class="far fa-bookmark"></i><%= t.likes.count %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <i class="far fa-bookmark"></i><%= t.likes.count %>
+        <% end %>
+      <%= t.created_at %>
+        投稿者:<a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+          <%= link_to "授業詳細", lesson_path(t.id) %>
+        <% if user_signed_in? && current_user.id == t.user_id %> 
+          <%= link_to "編集する", edit_lesson_path(t.id) %>
+          <%= button_to "削除する", lesson_path(t.id), method: :delete %>
+        <% end %>
+    </div>
+  <% end %>
+</div>

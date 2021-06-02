@@ -1,0 +1,50 @@
+<h1>CONNECTION</h1>
+<h3>授業詳細</h3>
+<div class="lesson">
+  <p>年度:<%= @lesson.academic_year %></p>
+  <p>開講区分:<%= @lesson.quarter %></p>
+  <p>講義名:<%= @lesson.lesson_name %></p>
+  <p>教員名:<%= @lesson.teacher_name %></p>
+  <p>曜日:<%= @lesson.day7 %>曜日</p>
+  <p>時限:<%= @lesson.period %>限</p>
+  投稿者:<a href="/users/<%= @lesson.user.id %>"><%= @lesson.user.name %></a>
+  <%= link_to "授業一覧", lessons_path %>
+  <%= link_to "編集する", edit_lesson_path(@lesson.id) %>
+  <% if user_signed_in? %>
+    <% if current_user.already_liked?(@lesson) %>
+      <%= link_to lesson_like_path(@lesson), method: :delete do %>
+        <i class="fas fa-bookmark"></i><%= @lesson.likes.count %>
+      <% end %>
+    <% else %>
+      <%= link_to lesson_likes_path(@lesson), method: :post do %>
+        <i class="far fa-bookmark"></i><%= @lesson.likes.count %>
+      <% end %>
+    <% end %>
+  <% else %>
+  <i class="far fa-fa-bookmark"></i><%= @lesson.likes.count %>
+  <% end %>
+  <div class="comment-wrapper">
+   <p>コメント</p>
+    <% @comments.each do |c| %>
+      <div>
+       <%= c.id %> : <%= c.created_at %>
+       名前:<a href="/users/<%= c.user.id %>"><%= c.user.name unless c.user.blank? %></a>
+       <br>
+       <%= c.content %>
+      </div>
+      <% if user_signed_in? && current_user.id == c.user_id %>
+        <%= link_to "削除する", lesson_comment_path(@lesson, c.id), method: :delete %>
+      <% end %>  
+    <% end %>
+
+      <% if user_signed_in? %>
+        <%= form_with(model: [@lesson, @comment], local: true) do |f| %>
+        <%= f.text_area :content %>
+        <%= button_tag type: "submit" do %>
+          <i class="far fa-comments"></i> コメントする
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

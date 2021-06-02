@@ -1,0 +1,108 @@
+<br>
+<%= link_to "授業一覧に戻る", lessons_path %>
+<% unless current_user.id == @user.id  %>
+  <%= link_to "マイページへ", user_path(current_user.id) %>
+<% end %>  
+<h1><%= @user.name %>のプロフィール</h1>
+<% if @user.image? %>
+  <%= image_tag @user.image.url, :size => '100x100' %>
+<% else %>
+  <%= image_tag "/assets/default.jpg", :size => '100x100' %>
+<% end %>
+<% if @user.id == current_user.id %>
+
+<% else %>
+  <% if @isRoom == true %>
+    <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+  <% else %>
+    <%= form_for @room do |f| %>
+      <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :user_id, :value=> @user.id %>
+      <% end %>
+      <%= f.submit "チャットを始める" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% unless @user == current_user %>
+  <% if current_user.following?(@user) %>
+    <%= link_to 'フォロー中', unfollow_path(@user.id), method: :POST %>
+  <% else %>
+    <%= link_to 'フォローする', follow_path(@user.id), method: :POST %>
+  <% end %>
+<% end %>
+
+<% unless @user == current_user %>
+  <% if @user.following?(current_user) %>
+    <%= 'フォローされています' %>
+  <% else %>
+    
+  <% end %>
+<% end %>
+
+<p>名前:<%= @user.name %></p>
+<p>学年:<%= @user.user_grade %></p>
+<p>メールアドレス:<%= @user.email %></p>
+<p>プロフィール:<%= @user.profile %></p>
+
+<h3>フォロー一覧<%= "(#{@user.follower.count})" %></h3>
+　<% @user.following_user.where.not(id: current_user.id).each do |user| %>
+    <p>
+    <% if user.image? %>
+      <%= image_tag user.image.url, :size => '30x30' %>
+    <% else %>
+      <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+    <% end %>
+    <%= link_to "#{user.name}", user_path(user) %>
+      <% if current_user.following?(user) %>
+        <%= link_to 'フォロー中', unfollow_path(user.id), method: :POST %>
+      <% else %>
+        <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+      <% end %>
+    </p>
+<% end %>
+<h3>フォロワー一覧<%= "(#{@user.followed.count})" %></h3>
+  <% @user.follower_user.where.not(id: current_user.id).each do |user| %>
+    <p>
+    <% if user.image? %>
+      <%= image_tag user.image.url, :size => '30x30' %>
+    <% else %>
+      <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+    <% end %>
+    <%= link_to " #{user.name} ", user_path(user) %>
+      <% if current_user.following?(user) %>
+        <%= link_to 'フォロー中', unfollow_path(user.id), method: :POST %>
+      <% else %>
+        <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+      <% end %>
+    </p>
+<% end %>
+
+<% if current_user.id == @user.id %>
+  <%= link_to "編集する", edit_user_registration_path %>
+  <%= link_to "アカウントを削除する",user_path(current_user.id), class: "destroy-user",method: :delete %>
+<% end %>
+
+
+<h2>ユーザーの投稿一覧</h2>
+<% @lesson_list.each do |t| %>
+    <div class=lesson>
+    講義名:<%= t.lesson_name %>
+    教員名:<%= t.teacher_name %>
+    <%= link_to "授業詳細", lesson_path(t.id) %>
+    </div>
+<% end %>
+
+
+
+<h2>登録授業一覧</h2>
+<% @like_list.each do |t| %>
+  <div class=lesson>
+  講義名:<%= t.lesson.lesson_name %>
+  年度:<%= t.lesson.academic_year %>
+  開講区分:<%= t.lesson.quarter %>
+  曜日:<%= t.lesson.day7 %>
+  担当:<%= t.lesson.teacher_name %>
+  <%= link_to "授業詳細", lesson_path(t.lesson.id) %>
+  </div>
+<% end %>
