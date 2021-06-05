@@ -1,6 +1,7 @@
 <br>
 <%= link_to "マイページへ", user_path(current_user.id) %>
 <br>
+<%= link_to "DM一覧", rooms_path %>
 <% @entries.each do |e| %>
   <% if e.user_id != current_user.id %>
     <h3>
@@ -25,7 +26,10 @@
     <% end %>
       <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %>さん</a></strong></small>
     <% end %>
-    <strong><%= m.content %></strong>
+    <strong>
+    <%= image_tag m.message_image_url, size: "250x200" if m.message_image? %>
+    <%= m.content %>
+    </strong>
     <br>
     <%= m.created_at %>
     <hr>
@@ -36,9 +40,11 @@
 
 <%= form_for @message do |f| %>
   <%= f.text_field :content, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :message_image %>
+  </div>
   <%= f.hidden_field :room_id, :value => @room.id %>
   <br>
   <%= f.submit "投稿する" %>
 <% end %>
-
-#写真投稿機能

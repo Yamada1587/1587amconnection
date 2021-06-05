@@ -1,5 +1,5 @@
-<% visitor = notification.where(visitor) %>
-<% visited = notification.where(visited) %>
+<% visitor = @notifications.where(visitor) %>
+<% visited = @notifications.where(visited) %>
 <div>
 
  <%= link_to user_path(visitor) do %>

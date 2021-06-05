@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
-    def create
+
+      def create
         like = current_user.likes.create(lesson_id: params[:lesson_id]) #user_idとtweet_idの二つを代入
         redirect_back(fallback_location: root_path)
       end

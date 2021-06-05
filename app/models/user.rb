@@ -9,10 +9,13 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :like_lessons, through: :likes, source: :lesson
   has_many :comments, dependent: :destroy
+  has_many :comment_images, dependent: :destroy
   has_many :likes
   has_many :lessons, through: :likes
   has_many :messages, dependent: :destroy
+  has_many :message_images, dependent: :destroy
   has_many :entries, dependent: :destroy
+  has_many :rooms, through: :entries
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy # フォロー取得
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # フォロワー取得 
   has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
@@ -40,5 +43,7 @@ end
   
   def already_liked?(lesson)
     self.likes.exists?(lesson_id: lesson.id)
-  end
+  end 
+
+
 end

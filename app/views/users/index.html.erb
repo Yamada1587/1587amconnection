@@ -1,13 +1,12 @@
-<% if user_signed_in? %>
-  <h1>ユーザー一覧画面</h1>
-  <% @users.each do |user| %>
-    <p>
-      <%= "id: #{user.id} email: #{user.email}" %>
-      <% if current_user.following?(user) %>
-        <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
-      <% else %>
-        <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
-      <% end %>
-    </p>
-  <% end %>
+<%- if controller_name != 'sessions' %>
+<br>
+  <%= link_to "登録お済の方はこちら", new_session_path(resource_name) %><br />
+<% end %>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to "connectionに登録", new_registration_path(resource_name) %><br />
+<% end %>
+
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to "パスワードをお忘れですか？", new_password_path(resource_name) %><br />
 <% end %>

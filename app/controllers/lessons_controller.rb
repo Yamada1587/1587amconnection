@@ -12,6 +12,10 @@ class LessonsController < ApplicationController
     end
  end
 
+ def like_user 
+   @lesson = Lesson.find(params[:id])
+ end
+
  def new
     @lesson = Lesson.new
  end

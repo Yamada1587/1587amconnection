@@ -5,7 +5,7 @@
 <%= link_to "マイページへ", user_path(current_user.id) %>　
 <% end %>
 <%= link_to "新規投稿", new_lesson_path %>
-<h3>投稿を検索</h3>
+<h3>投稿を検索</h3>#ここにもっと検索機能の追加が欲しい
  <%= form_tag({controller:"lessons",action:"index"}, method: :get) do %>
    <%= text_field_tag :search %>
    <%= submit_tag '検索する'  %>

@@ -3,7 +3,8 @@ class CommentsController < ApplicationController
 
   def create
     lesson = Lesson.find(params[:lesson_id])
-    comment = lesson.comments.build(comment_params) #buildを使い、contentとtweet_idの二つを同時に代入
+    comment = lesson.comments.build(comment_params)
+    #buildを使い、contentとtweet_idの二つを同時に代入
     comment.user_id = current_user.id
     if comment.save
       flash[:success] = "コメントしました"
@@ -22,6 +23,6 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      params.require(:comment).permit(:content)
+      params.require(:comment).permit(:content, :comment_image)
     end
 end

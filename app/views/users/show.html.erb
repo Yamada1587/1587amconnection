@@ -11,7 +11,7 @@
   <%= image_tag "/assets/default.jpg", :size => '100x100' %>
 <% end %>
 <% if @user.id == current_user.id %>
-
+<%= link_to "DM", rooms_path %>
 <% else %>
   <% if @isRoom == true %>
     <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
@@ -91,6 +91,10 @@
     講義名:<%= t.lesson_name %>
     教員名:<%= t.teacher_name %>
     <%= link_to "授業詳細", lesson_path(t.id) %>
+        <% if user_signed_in? && current_user.id == t.user_id %> 
+          <%= link_to "編集する", edit_lesson_path(t.id) %>
+          <%= link_to "削除する", lesson_path(t.id), method: :delete %>
+        <% end %>
     </div>
 <% end %>
 
@@ -106,4 +110,5 @@
   担当:<%= t.lesson.teacher_name %>
   <%= link_to "授業詳細", lesson_path(t.lesson.id) %>
   </div>
+  
 <% end %>

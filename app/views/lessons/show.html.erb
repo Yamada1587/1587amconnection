@@ -21,8 +21,11 @@
       <% end %>
     <% end %>
   <% else %>
-  <i class="far fa-fa-bookmark"></i><%= @lesson.likes.count %>
+        <i class="far fa-fa-bookmark"></i><%= @lesson.likes.count %>
   <% end %>
+
+  <%= link_to 'いいねした人', like_user_path(@lesson.id) %>
+
   <div class="comment-wrapper">
    <p>コメント</p>
     <% @comments.each do |c| %>
@@ -30,6 +33,7 @@
        <%= c.id %> : <%= c.created_at %>
        名前:<a href="/users/<%= c.user.id %>"><%= c.user.name unless c.user.blank? %></a>
        <br>
+       <%= image_tag c.comment_image_url, size: "250x200" if c.comment_image? %>
        <%= c.content %>
       </div>
       <% if user_signed_in? && current_user.id == c.user_id %>
@@ -40,6 +44,10 @@
       <% if user_signed_in? %>
         <%= form_with(model: [@lesson, @comment], local: true) do |f| %>
         <%= f.text_area :content %>
+        <div class="field">
+          <%= f.label :image %>
+          <%= f.file_field :comment_image %>
+        </div>
         <%= button_tag type: "submit" do %>
           <i class="far fa-comments"></i> コメントする
         <% end %>
@@ -47,5 +55,6 @@
     <% end %>
   </div>
 
+ 
+
 </div>
-#写真投稿機能
