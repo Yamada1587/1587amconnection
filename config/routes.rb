@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  get 'hello/index' => 'hello#index'
-  get 'hello/link' => 'hello#link'
+  get 'users/following_users/:id' => 'users#following_users', as: 'following_users'
+  get 'users/followed_users/:id' => 'users#followed_users', as: 'followed_users'
   
   get 'notifications/index' => 'notifications#index'
 
@@ -25,5 +25,7 @@ Rails.application.routes.draw do
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' # フォロー外す
 
   get 'lessons/like_user/:id' => 'lessons#like_user', as: 'like_user'
+  get 'users/lesson_list/:id' => 'users#lesson_list', as: 'lesson_list'
+  get 'users/like_list/:id' => 'users#like_list', as: 'like_list'
 end
 

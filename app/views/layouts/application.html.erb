@@ -9,15 +9,24 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
+  <header>
     <br>
-    <%= link_to "トップページ", root_path  %>
-    <% if user_signed_in? %> <!-- ユーザーがログインしているか調べる -->
-      <!-- ユーザーがログインしていた時の処理 -->
+    <div class=top-link-div>
+      <%= link_to "CONNECTION", root_path, class: "top-link-a"  %>
+    </div>
+      <% if user_signed_in? %> <!-- ユーザーがログインしているか調べる -->
+        <!-- ユーザーがログインしていた時の処理 -->
 
-      <h4> アカウント：<a href="/users/<%= current_user.id %>"><%= current_user.name %></a> </h4>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
-    <% end %>
-    <%= yield %>
+        <h4>
+        <% if current_user.image? %>
+            <%= image_tag current_user.image.url, :size => '30x30' %>
+        <% else %>
+            <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+        <% end %>
+        <a class="top-name" href="/users/<%= current_user.id %>"><%= current_user.name %></a> </h4>
+      <% end %>
+    </header>
+  <body>
+  <%= yield %>
   </body>
 </html>

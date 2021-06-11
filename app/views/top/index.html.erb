@@ -1,7 +1,28 @@
-<% if user_signed_in? %> <!-- ユーザーがログインしているか調べる -->
-<% else %>
-  <!-- ユーザーがログインしていなかった時の処理 -->
-  <br>
-  connectionに<%= link_to "ログイン", new_user_session_path, class: 'post' %> <!-- ログイン画面に移行する -->
-  または<%= link_to "新規登録", new_user_registration_path, class: 'post' %> <!-- 新規登録画面に移行する -->
-<% end %>
+<div class=top-index>
+ <br>
+ <br>
+ <br>
+ <br>
+ <h1>CONNECTION</h1>
+ <p>同じ授業の人と気軽につながろう！</p>
+ <% if user_signed_in? %> <!-- ユーザーがログインしているか調べる -->
+ <% else %>
+   <!-- ユーザーがログインしていなかった時の処理 -->
+   <br>
+   <div class=logup>
+    <%= link_to "ログイン", new_user_session_path, class: 'post' %> <!-- ログイン画面に移行する -->
+    or <%= link_to "新規登録", new_user_registration_path, class: 'post' %> <!-- 新規登録画面に移行する -->
+   <div>  
+  <% end %>
+</div> 
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>

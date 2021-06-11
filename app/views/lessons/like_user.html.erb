@@ -1,5 +1,16 @@
-<h1>geeksalon</h1>
-<h2>いいねしたユーザー</h2>
-<% @lesson.liked_users.each do |user| %>
-  <li><%= user.name %></li>
+<h2>授業登録しているユーザー</h2>
+<% @lesson.liked_users.where.not(id: current_user.id).each do |user| %>
+    <p>
+    <% if user.image? %>
+      <%= image_tag user.image.url, :size => '30x30' %>
+    <% else %>
+      <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+    <% end %> 
+    <%= link_to "#{user.name}", user_path(user) %>
+    <% if current_user.following?(user) %>
+      <%= link_to 'フォロー中', unfollow_path(user.id), method: :POST %>
+    <% else %>
+      <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+    <% end %>
+   </p>
 <% end %>

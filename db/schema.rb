@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_194503) do
+ActiveRecord::Schema.define(version: 2021_06_08_143433) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_06_04_194503) do
     t.integer "period"
     t.string "day7"
     t.integer "like_count"
+    t.string "class_code"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -70,8 +71,8 @@ ActiveRecord::Schema.define(version: 2021_06_04_194503) do
     t.integer "visited_id"
     t.integer "room_id"
     t.integer "message_id"
-    t.string "action"
-    t.boolean "checked"
+    t.string "action", default: "dm", null: false
+    t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
     if params[:search] != nil && params[:search] != ''
       #部分検索かつ複数検索
       search = params[:search]
-      @lessons = Lesson.joins(:user).where("lesson_name LIKE ? OR teacher_name LIKE ?", "%#{search}%", "%#{search}%")
+      @lessons = Lesson.joins(:user).where("lesson_name LIKE ? OR teacher_name LIKE ? OR academic_year LIKE ? OR quarter LIKE ? OR day7 LIKE ? OR period LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
     else
       @lessons = Lesson.all
     end

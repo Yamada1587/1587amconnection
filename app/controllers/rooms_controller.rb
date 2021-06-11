@@ -1,10 +1,10 @@
 class RoomsController < ApplicationController
     before_action :authenticate_user!
 
-  def index
-    @rooms = current_user.rooms
-    @user =  User.where(user_id: params[:id])
-  end 
+    def index
+      @user = User.find(current_user.id) #userはログインしている人
+      @rooms = @user.rooms #ログインしている人のルーム一覧
+    end
     
   def create
     @room = Room.create

@@ -1,11 +1,4 @@
-<% visitor = @notifications.where(visitor) %>
-<% visited = @notifications.where(visited) %>
-<div>
+#<% visitor = @notifications.where(visitor) %>
+#<% visited = @notifications.where(visited) %>
 
- <%= link_to user_path(visitor) do %>
-     <%= visitor.ids %>さんが
- <% end %>
- <% if notification.action=='dm' %>
-    あなたにDMを送りました
- <% end %>
-</div>
+<%= notification.action %>

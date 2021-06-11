@@ -1,0 +1,13 @@
+<h1>lesson_list</h1>
+<h2>ユーザーの投稿一覧</h2>
+<% @lesson_list.each do |t| %>
+    <div class=lesson>
+    講義名:<%= t.lesson_name %>
+    教員名:<%= t.teacher_name %>
+    <%= link_to "授業詳細", lesson_path(t.id) %>
+        <% if user_signed_in? && current_user.id == t.user_id %> 
+          <%= link_to "編集する", edit_lesson_path(t.id) %>
+          <%= link_to "削除する", lesson_path(t.id), method: :delete %>
+        <% end %>
+    </div>
+<% end %>

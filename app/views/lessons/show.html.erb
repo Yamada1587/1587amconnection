@@ -7,7 +7,12 @@
   <p>教員名:<%= @lesson.teacher_name %></p>
   <p>曜日:<%= @lesson.day7 %>曜日</p>
   <p>時限:<%= @lesson.period %>限</p>
-  投稿者:<a href="/users/<%= @lesson.user.id %>"><%= @lesson.user.name %></a>
+  投稿者: <% if @lesson.user.image? %>
+            <%= image_tag @lesson.user.image.url, :size => '30x30' %>
+          <% else %>
+            <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+          <% end %>
+         <a href="/users/<%= @lesson.user.id %>"><%= @lesson.user.name %></a>
   <%= link_to "授業一覧", lessons_path %>
   <%= link_to "編集する", edit_lesson_path(@lesson.id) %>
   <% if user_signed_in? %>
@@ -24,14 +29,18 @@
         <i class="far fa-fa-bookmark"></i><%= @lesson.likes.count %>
   <% end %>
 
-  <%= link_to 'いいねした人', like_user_path(@lesson.id) %>
+  <%= link_to '授業登録した人', like_user_path(@lesson.id) %>
 
   <div class="comment-wrapper">
    <p>コメント</p>
     <% @comments.each do |c| %>
       <div>
        <%= c.id %> : <%= c.created_at %>
-       名前:<a href="/users/<%= c.user.id %>"><%= c.user.name unless c.user.blank? %></a>
+       名前:<% if c.user.image? %>
+              <%= image_tag c.user.image.url, :size => '30x30' %>
+            <% else %>
+              <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+            <% end %><a href="/users/<%= c.user.id %>"><%= c.user.name unless c.user.blank? %></a>
        <br>
        <%= image_tag c.comment_image_url, size: "250x200" if c.comment_image? %>
        <%= c.content %>

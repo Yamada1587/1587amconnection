@@ -1,0 +1,13 @@
+<h1>like_list</h1>
+<h2>登録授業一覧</h2>
+<% @user.like_lessons.each do |t| %>
+  <div class=lesson>
+  講義名:<%= t.lesson_name %>
+  年度:<%= t.academic_year %>
+  開講区分:<%= t.quarter %>
+  曜日:<%= t.day7 %>
+  担当:<%= t.teacher_name %>
+  <%= link_to "授業詳細", lesson_path(t.id) %>
+  </div>
+  
+<% end %>

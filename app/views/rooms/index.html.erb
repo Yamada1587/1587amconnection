@@ -1,17 +1,20 @@
-<h1>DM</h1> 
-<div class="dm_list">
-  <% @rooms.each do |room| %>
-    <div class="dm_list__content">
-      <%= link_to room_path(room), class: "dm_list__content__link" do %>
-        <div class="dm_list__content__link__box">
-          <h3 class="dm_list__content__link__box__name">
-            <%= opponent_user(room) %>
-          </h3>
-          <p class="dm_list__content__link__box__message">
-            <%= most_new_message_preview(room) %>
-          </p>
-        </div>
-      <% end %>
-    </div>
+<p>DM一覧</p>
+<% if current_user.id == @user.id %>
+  <h3>チャット一覧</h3>
+  <% @rooms.each do |r| %>
+    <% r.dm_users.each do |u| %> <!--ルームのユーザーは二人-->
+     <% if u.id == current_user.id %> <!--自分じゃない方は表示-->
+     <% else %>
+        <p>
+        <% if u.image? %>
+          <%= image_tag u.image.url, :size => '30x30' %>
+        <% else %>
+          <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+        <% end %>
+        <a href="/rooms/<%= r.id %>"><%= u.name %>さんとのチャット</a>
+        </p>  
+     <% end %>
+    <% end %> 
   <% end %>
-</div>
+<% else %>
+<% end %>

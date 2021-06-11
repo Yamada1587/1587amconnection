@@ -24,7 +24,7 @@ module RoomsHelper
       name = entry[0].user.name
       image = entry[0].user.image
       # 名前を表示
-      tag.p "#{name}", class: "dm_list__content__link__box__name"
+      tag.p "#{image}:#{name}", class: "dm_list__content__link__box__name"
     end
   
   end

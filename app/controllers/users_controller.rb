@@ -1,6 +1,23 @@
 class UsersController < ApplicationController
     def index
     end
+
+    def following_users
+      @user = User.find(params[:id])
+    end
+
+    def followed_users
+      @user = User.find(params[:id])
+    end
+
+    def lesson_list
+      @user = User.find(params[:id])
+      @lesson_list = Lesson.where(user_id: params[:id])
+    end
+
+    def like_list
+      @user = User.find(params[:id])
+    end
     
     def show
       @lessons = Lesson.all
