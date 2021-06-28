@@ -4,6 +4,16 @@ class RoomsController < ApplicationController
     def index
       @user = User.find(current_user.id) #userはログインしている人
       @rooms = @user.rooms #ログインしている人のルーム一覧
+
+      @currentEntries = current_user.entries
+      myRoomIds = []
+      
+      @currentEntries.each do | entry |
+        myRoomIds << entry.room.id
+      end
+      
+      @anotherEntries = Entry.where(room_id: myRoomIds).where('user_id != ?', @user.id)
+      
     end
     
   def create

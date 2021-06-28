@@ -1,18 +1,33 @@
-<p>DM一覧</p>
+<h1>DM一覧</h1>
 <% if current_user.id == @user.id %>
-  <h3>チャット一覧</h3>
   <% @rooms.each do |r| %>
     <% r.dm_users.each do |u| %> <!--ルームのユーザーは二人-->
      <% if u.id == current_user.id %> <!--自分じゃない方は表示-->
      <% else %>
+     <div class="follow">
+     <div class="l-wrapper_06-follow">
+     <div class="card_06">
         <p>
+        <div class="follow-link-left">
         <% if u.image? %>
-          <%= image_tag u.image.url, :size => '30x30' %>
+          <%= image_tag u.image.url, :size => '30x30', class: "image" %>
         <% else %>
-          <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+          <%= image_tag "/assets/default.jpg", :size => '30x30', class: "image" %>
         <% end %>
-        <a href="/rooms/<%= r.id %>"><%= u.name %>さんとのチャット</a>
-        </p>  
+        <a class="follow-link link-left" href="/rooms/<%= r.id %>"><%= u.name %></a>
+        </div>
+        <div class="mess">
+          <% if Message.find_by(id: r.message_ids.last) %>
+            <%= Message.find_by(id: r.message_ids.last).user.name %> :
+            <%= Message.find_by(id: r.message_ids.last).content %>
+          <% end %>
+        </div>
+        </p> 
+
+        <br> 
+      </div>
+      </div>
+      </div>  
      <% end %>
     <% end %> 
   <% end %>

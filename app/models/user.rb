@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :lessons, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :comment_images, dependent: :destroy
+  has_many :commentimages, dependent: :destroy
   has_many :likes
   has_many :lessons, through: :likes
   has_many :like_lessons, through: :likes, source: :lesson

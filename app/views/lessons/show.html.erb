@@ -1,69 +1,93 @@
-<h1>CONNECTION</h1>
-<h3>授業詳細</h3>
-<div class="lesson">
-  <p>年度:<%= @lesson.academic_year %></p>
-  <p>開講区分:<%= @lesson.quarter %></p>
-  <p>講義名:<%= @lesson.lesson_name %></p>
-  <p>教員名:<%= @lesson.teacher_name %></p>
-  <p>曜日:<%= @lesson.day7 %>曜日</p>
-  <p>時限:<%= @lesson.period %>限</p>
-  投稿者: <% if @lesson.user.image? %>
-            <%= image_tag @lesson.user.image.url, :size => '30x30' %>
+<div class="lesson-show">
+<h3 class="link-h4">
+ <div class="link-lesson-edit">
+  <div class="link-lesson">
+ > <%= link_to "講義一覧", lessons_path, class: "link"  %>
+  </div>
+  <div class="link-edit-d">
+   <%= link_to "編集", edit_lesson_path(@lesson.id), class: "search-btn edit-del" %> 
+   <% if user_signed_in? && current_user.id == @lesson.user_id %> 
+    <%= button_to "削除", lesson_path(@lesson.id), data: { confirm: "本当にこの講義を削除してよろしいですか？（復元されることはありません。）" }, class: 'search-btn edit-del del', method: :delete %>
+   <% end %>
+  </div>  
+ </div> 
+</h3>
+<h1>講義詳細</h1>
+<br>
+  <p class="lesson-line">年度:<%= @lesson.academic_year %></p>
+  <p class="lesson-line">開講区分:<%= @lesson.quarter %></p>
+  <p class="lesson-line">講義名:<%= @lesson.lesson_name %></p>
+  <p class="lesson-line">教員名:<%= @lesson.teacher_name %></p>
+  <p class="lesson-line">曜日:<%= @lesson.day7 %></p>
+  <p class="lesson-line">時限:<%= @lesson.period %></p>
+  <br>
+  <p class="post-name">投稿者: <% if @lesson.user.image? %>
+            <%= image_tag @lesson.user.image.url, :size => '30x30', class: "image" %>
           <% else %>
-            <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+            <%= image_tag "/assets/default.jpg", :size => '30x30', class: "image" %>
           <% end %>
-         <a href="/users/<%= @lesson.user.id %>"><%= @lesson.user.name %></a>
-  <%= link_to "授業一覧", lessons_path %>
-  <%= link_to "編集する", edit_lesson_path(@lesson.id) %>
+         <a class="link" href="/users/<%= @lesson.user.id %>"><%= @lesson.user.name %></a>
+  </p>     
+  <div class="link-right"> 
+  <div class="link-right"> 
+  <%= link_to '授業登録した人', like_user_path(@lesson.id), class: "link-right" %>
+    
+  </div>
   <% if user_signed_in? %>
-    <% if current_user.already_liked?(@lesson) %>
-      <%= link_to lesson_like_path(@lesson), method: :delete do %>
-        <i class="fas fa-bookmark"></i><%= @lesson.likes.count %>
-      <% end %>
-    <% else %>
-      <%= link_to lesson_likes_path(@lesson), method: :post do %>
-        <i class="far fa-bookmark"></i><%= @lesson.likes.count %>
-      <% end %>
+   <% if current_user.already_liked?(@lesson) %>
+    <%= link_to lesson_like_path(@lesson), class: "bookmark", method: :delete do %>
+      <i class="fas fa-bookmark"></i><%= @lesson.likes.count %>
     <% end %>
+   <% else %>
+    <%= link_to lesson_likes_path(@lesson), class: "bookmark", method: :post do %>
+      <i class="far fa-bookmark"></i><%= @lesson.likes.count %>
+    <% end %>
+   <% end %>
   <% else %>
-        <i class="far fa-fa-bookmark"></i><%= @lesson.likes.count %>
-  <% end %>
-
-  <%= link_to '授業登録した人', like_user_path(@lesson.id) %>
-
+      <i class="far fa-fa-bookmark"></i><%= @lesson.likes.count %>
+  <% end %> 
+  </div>
+  <br>
+  <p class="lesson-line"></p>
+  <br>
   <div class="comment-wrapper">
-   <p>コメント</p>
+  <% if user_signed_in? %>
+    <%= form_with(model: [@lesson, @comment], local: true) do |f| %>
+     <% if @lesson.user.image? %>
+      <%= image_tag @lesson.user.image.url, :size => '30x30' %>
+    <% else %>
+      <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+    <% end %>
+     <%= f.text_area :content, size: "40x1", placeholder: "公開コメントを入力する" %>
+     <%= f.file_field :commentimage %>
+     
+     <div class="link-right">
+       <%= button_tag type: "submit", class: 'search-btn' do %>
+       <i class="far fa-comments"></i> コメント
+       <% end %>
+     </div>
+    <% end %>
+  <% end %>
     <% @comments.each do |c| %>
       <div>
-       <%= c.id %> : <%= c.created_at %>
-       名前:<% if c.user.image? %>
-              <%= image_tag c.user.image.url, :size => '30x30' %>
-            <% else %>
-              <%= image_tag "/assets/default.jpg", :size => '30x30' %>
-            <% end %><a href="/users/<%= c.user.id %>"><%= c.user.name unless c.user.blank? %></a>
        <br>
-       <%= image_tag c.comment_image_url, size: "250x200" if c.comment_image? %>
-       <%= c.content %>
+       <p class="lesson-line"></p>
+        <%= c.id %> : <%= c.created_at %>
+        名前:<% if c.user.image? %>
+               <%= image_tag c.user.image.url, :size => '30x30', class: "image" %>
+             <% else %>
+               <%= image_tag "/assets/default.jpg", :size => '30x30', class: "image" %>
+             <% end %><a class="link" href="/users/<%= c.user.id %>"><%= c.user.name unless c.user.blank? %></a>
+        <br>
+         <%= image_tag c.commentimage_url, size: "250x200" if c.commentimage? %>
+        <%= c.content %>
       </div>
-      <% if user_signed_in? && current_user.id == c.user_id %>
-        <%= link_to "削除する", lesson_comment_path(@lesson, c.id), method: :delete %>
-      <% end %>  
-    <% end %>
-
-      <% if user_signed_in? %>
-        <%= form_with(model: [@lesson, @comment], local: true) do |f| %>
-        <%= f.text_area :content %>
-        <div class="field">
-          <%= f.label :image %>
-          <%= f.file_field :comment_image %>
-        </div>
-        <%= button_tag type: "submit" do %>
-          <i class="far fa-comments"></i> コメントする
-        <% end %>
+       <% if user_signed_in? && current_user.id == c.user_id %>
+       <div class="link-right">
+         <%= link_to "削除", lesson_comment_path(@lesson, c.id), data: { confirm: "本当にこのコメントを削除してよろしいですか？（復元されることはありません。）" }, method: :delete, class: "search-btn" %>
+       </div>
+       <% end %>  
       <% end %>
-    <% end %>
-  </div>
-
- 
-
+    </div>
+    <br>
 </div>

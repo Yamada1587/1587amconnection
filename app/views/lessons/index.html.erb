@@ -1,17 +1,22 @@
-#投稿を削除できなくなってしまった
 <div class=lesson-index-body>
 <% if user_signed_in? %>
-<%= link_to "マイページへ", user_path(current_user.id) %>　
 <% end %>
-<%= link_to "新規投稿", new_lesson_path %>
-<h3>投稿を検索</h3>
- <%= form_tag({controller:"lessons",action:"index"}, method: :get) do %>
-   <%= text_field_tag :search %>
-   <%= submit_tag '検索する'  %>
-<% end %>
+<div class="search">
+  <%= form_tag({controller:"lessons",action:"index"}, method: :get) do %>
+    <%= text_field_tag :search, "",{size:"50", placeholder:"年度や開講区分の部分検索も可能です"} %>
+    <%= submit_tag '講義検索', class: 'search-btn'  %>
+  <% end %>
+</div>
+<br>
+<%= link_to "新規投稿", new_lesson_path, class: "lesson-post" %>
+<h1>講義一覧</h1>
 <div class="lessons-container">
   <% @lessons.each do |t| %>
+    <%= link_to lesson_path(t.id) do %>
     <div class="lesson">
+    <div class="l-wrapper_06">
+    <div class="card_06">
+    <br>
       <p class="lesson-line">年度:<%= t.academic_year %></p>
       <p class="lesson-line">開講区分:<%= t.quarter %></p>
       <p class="lesson-line">講義名:<%= t.lesson_name %></p>
@@ -23,33 +28,22 @@
         <% if user_signed_in? %>
           <% if current_user.already_liked?(t) %>
             <%= link_to lesson_like_path(id: t.id, lesson_id: t.id), class: "bookmark", method: :delete do %>
-              <i class="fas fa-bookmark"></i><%= t.likes.count %>
+              <i class="fas fa-bookmark"> <span class="regist">登録解除</span></i>(<%= t.likes.count %>)
             <% end %>
           <% else %>
             <%= link_to lesson_likes_path(id: t.id, lesson_id: t.id), class: "bookmark", method: :post do %>
-              <i class="far fa-bookmark"></i><%= t.likes.count %>
+              <i class="far fa-bookmark"> <span class="regist">登録</span></i>(<%= t.likes.count %>)
             <% end %>
           <% end %>
         <% else %>
           <i class="far fa-bookmark"></i><%= t.likes.count %>
         <% end %>
-        <%= link_to "授業詳細", lesson_path(t.id) %>
-        </p>
-        <p>
-        投稿者:
-        <% if t.user.image? %>
-          <%= image_tag t.user.image.url, :size => '30x30' %>
-        <% else %>
-          <%= image_tag "/assets/default.jpg", :size => '30x30' %>
-        <% end %>
-        <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-        <% if user_signed_in? && current_user.id == t.user_id %> 
-          <%= link_to "編集する", edit_lesson_path(t.id) %>
-          <%= button_to "削除する", lesson_path(t.id), method: :delete %>
-        <% end %>
         </p>
         <%= t.created_at %>
     </div>
+    </div>
+    </div>
+    <% end %> 
   <% end %>
 </div>
 </div>

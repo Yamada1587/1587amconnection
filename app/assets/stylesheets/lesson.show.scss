@@ -1,0 +1,89 @@
+.lesson-show {
+    margin-top: 15px;
+    background-color: #f5deb3;
+    border-radius: 20px;
+    margin: 20px;
+    word-wrap: break-word;
+}
+
+.link-h4 {
+    color: #6f6f6f ;
+    margin-left: 5px;
+}
+
+.link {
+    color: #8eb8af;
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.link:hover {
+    color:#8eb8af88;
+}
+
+.link-lesson-edit {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.link-edit {
+    margin-top: 10px;
+    margin-right: 10px;
+    color: #8eb8af;
+    font-size: 18px;
+}
+
+.link-edit:hover {
+    color:#8eb8af88;
+}
+
+.post-name {
+    text-align: right;
+    margin-right: 5px;
+}
+
+.link-left {
+    margin-left: 5px;
+    display: flex;
+    flex-direction: reverse;
+    padding-left: 5px;
+    color: #8eb8af
+}
+
+.link-left:hover {
+    color:#8eb8af88;
+}
+
+.link-right {
+    margin-right: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-left: 5px;
+    color: #8eb8af
+}
+
+.link-right:hover {
+    color:#8eb8af88;
+}
+
+.setting-right {
+    display: inline-block;
+    text-align: right;
+}
+
+.comment-wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.edit-del {
+    display: flex;
+    flex-direction: space-between;
+}
+
+.del {
+    font-size: 18px;
+}

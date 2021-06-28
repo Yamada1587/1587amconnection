@@ -1,0 +1,93 @@
+.follow {
+    background-color: antiquewhite; 
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.follow-off {
+    padding: 0.4em 0.5em;/*文字の上下 左右の余白*/
+    color: #494949;/*文字色*/
+    border-bottom: solid 3px #8eb8af;/*下線*/ 
+    width: 50%;
+}
+
+.follow-on {
+    padding: 0.4em 0.5em;/*文字の上下 左右の余白*/
+    width: 50%; 
+}
+
+.follow-on:hover {
+    background: -webkit-linear-gradient(to right, rgb(255, 186, 115), transparent);
+    background: linear-gradient(to right, rgb(255, 186, 115), transparent);
+}
+
+.follow-link {
+    color: #8eb8af;
+    font-size: 18px;
+    margin-right: 5px;
+    margin-left: 7px;
+}
+
+.follow-link-left {
+    padding-top: 10px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: reverse;
+    padding-left: 5px;
+    color: #8eb8af
+}
+
+.follow-link-left:hover {
+    color:#8eb8af88;
+}
+
+.follow-box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.arrow {
+    padding: 3%;
+}
+
+.span-text {
+    padding-left: 1%;
+}
+
+.l-wrapper_06-follow {
+    margin: 1rem auto;
+    width: 100%;
+  }
+  
+.l-wrapper_06-follow:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 34px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    transition: all .5s;
+}
+
+.hover-parent {
+    width: 250px;
+    height: 175px;
+    position: relative;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.hover-mask {
+    width: 250px;
+    height: 175px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+}

@@ -30,6 +30,10 @@
       color: #6f6f6f
   }
 
+  .myname {
+    margin-right: 5px;
+  }
+
   .top-link {
     color: #c9b090;
     text-decoration: none;

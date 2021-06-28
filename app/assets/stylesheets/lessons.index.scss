@@ -1,0 +1,131 @@
+// Place all the styles related to the lessons controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+h3 {
+    color: #6f6f6f
+}
+
+.search {
+    display: inline-block;
+    text-align: center;
+    margin-left: 40%;
+    margin-top: 10px;
+}
+
+.search-btn {
+    color: azure;
+    background-color: #8eb8af;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+.search-btn:hover{
+    color: azure; /* 文字色を白にする */
+    background-color: #c9c9c9; /* 背景色をグレー（#c9c9c9）にする */ 
+    cursor: pointer;  
+}
+
+.lesson-post {
+    font-size: 20px;
+    color: azure;
+    background-color: #8eb8af;
+    border-radius: 5px;
+    padding: 3px;
+    margin-left: 2.5%;
+}
+
+.lesson-post:hover{
+    color: azure; /* 文字色を白にする */
+    background-color: #c9c9c9; /* 背景色をグレー（#c9c9c9）にする */ 
+    cursor: pointer;  
+}
+
+.field {
+    margin: 0 auto;
+}
+
+.lesson-index-body {
+    background-color: antiquewhite;
+}
+
+.lessons-container {
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.lesson {
+    word-wrap: break-word;
+    background-color: antiquewhite; 
+    width: 20%;
+    padding: 2.5% 2.5%;
+}
+
+.lesson-line {
+    border-bottom: 1px #ff8c00 solid;
+}
+
+.bookmark {
+    color: #8eb8af;
+}
+
+.regist:hover {
+    color:#8eb8af88;
+}
+
+
+.fa-plus-circle {
+    color: #8eb8af;
+    font-size: 40px;
+    position: absolute;
+}
+
+/*--------------------------------------
+  カード型_06
+--------------------------------------*/
+.l-wrapper_06 {
+    margin: 1rem auto;
+    width: 100%;
+  }
+  
+  .l-wrapper_06:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 7px 34px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    transition: all .5s;
+  }
+  .card_06 {
+    background: #f5deb3;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #ccc;
+  }
+  
+  .card-img_06 {
+    border-radius: 5px 5px 0 0;
+    max-width: 100%;
+    height: auto;
+  }
+  .card-title_06 {
+    font-size: 1.6em;
+    color: #333;
+    font-weight: 700;
+  }
+  .card-text_06 {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 0.2em;
+  }
+  .card-link_06 {
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding: 20px;
+  }
+
+  .card-content_06 p {
+    margin-bottom:0;
+  }

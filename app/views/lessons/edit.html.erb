@@ -1,5 +1,17 @@
+<div class="lesson-show">
+ <h4 class="link-h4">
+  <div class="link-lesson-edit">
+   <div class="link-lesson">
+     > <%= link_to "講義一覧", lessons_path, class: "link" %>
+   </div>
+   <div class="link-edit-d">
+    <a class="link" href="https://www.hit-u.ac.jp/kyomu/info/ct.html">シラバス検索</a>
+   </div>
+  </div> 
+ </h4>
+<h1>投稿編集・削除</h1>
 <%= form_for @lesson do |f| %>
-    <div class="field">
+    <div class="field-new">
     <%= f.label :講義名を正しく入力してください %>
     <br>
     <%= f.text_field :lesson_name %>
@@ -12,11 +24,20 @@
     <br>
     <%= f.text_field :academic_year %>
     <br>
+    <%= f.label :開講区分を選択してください %>
+    <br>
     <%= f.select :quarter, [["春学期", "春学期"], ["夏学期", "夏学期"], ["秋学期","秋学期"], ["冬学期","冬学期"], ["前期","前期"], ["後期","後期"], ["通年","通年"], ["集中","集中"]], include_blank: "開講区分を選択してください" %>
+    <br>
+    <%= f.label :曜日を選択してください %>
     <br>
     <%= f.select :day7, [["月", "月"], ["火", "火"], ["水","水"], ["木","木"], ["金","金"], ["土","土"], ["日","日"]], include_blank: "曜日を選択して下さい" %>
     <br>
+    <%= f.label :時限を選択してください %>
+    <br>
     <%= f.select :period, [["1", "1"], ["2", "2"], ["3","3"], ["4","4"], ["5","5"], ["6","6"],], include_blank: "時限を選択して下さい" %>
   </div>
-  <%= f.submit "編集" %>
+  <div class="post-btn">
+    <%= f.submit "編集", class: 'search-btn' %>    
+  </div>  
 <% end %>
+</div>

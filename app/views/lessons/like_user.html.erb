@@ -1,16 +1,29 @@
-<h2>授業登録しているユーザー</h2>
+<br>
+<h1>講義登録者</h1>
 <% @lesson.liked_users.where.not(id: current_user.id).each do |user| %>
+  <div class="follow">
+  <div class="l-wrapper_06-follow">
+  <div class="card_06">
     <p>
+    <div class="follow-link-left">
     <% if user.image? %>
-      <%= image_tag user.image.url, :size => '30x30' %>
+      <%= image_tag user.image.url, :size => '30x30', class: "image" %>
     <% else %>
-      <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+      <%= image_tag "/assets/default.jpg", :size => '30x30', class: "image" %>
     <% end %> 
-    <%= link_to "#{user.name}", user_path(user) %>
+    <%= link_to "#{user.name}", user_path(user), class: 'follow-link link-left' %>
+    </div>
     <% if current_user.following?(user) %>
-      <%= link_to 'フォロー中', unfollow_path(user.id), method: :POST %>
+    <div class="link-right">
+      <%= link_to 'フォロー中', unfollow_path(user.id), class: 'search-btn', method: :POST %>
+    </div>
     <% else %>
-      <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+    <div class="link-right">
+      <%= link_to 'フォローする', follow_path(user.id), class: 'search-btn', method: :POST %>
+    </div>
     <% end %>
    </p>
+  </div>
+  </div>
+  </div>
 <% end %>

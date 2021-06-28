@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_143433) do
     t.integer "lesson_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "comment_image"
+    t.string "commentimage"
     t.index ["lesson_id"], name: "index_comments_on_lesson_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end

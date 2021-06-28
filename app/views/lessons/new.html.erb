@@ -1,29 +1,42 @@
-<h1>CONNECTION</h1>
-<h3>新規投稿</h3>
+<div class="lesson-show">
+<h4 class="link-h4">
+<div class="link-lesson-edit">
+ <div class="link-lesson">
+  > <%= link_to "講義一覧", lessons_path, class: "link" %>
+ </div>
+ <div class="link-edit-d">
+  <a class="link" href="https://www.hit-u.ac.jp/kyomu/info/ct.html">シラバス検索</a>
+ </div>
+</div> 
+</h4>
+<h1>新規投稿</h1>
 <%= form_for @lesson do |f| %>
-  <div class="field">
+  <div class="field-new">
     <%= f.label :時間割コードを必ず正しく入力してください %>
     <br>
-    <%= f.text_field :class_code %>
+    <%= f.text_field :class_code, placeholder: "例）1EA10101" %>
     <br>
     <%= f.label :講義名を正しく入力してください %>
     <br>
-    <%= f.text_field :lesson_name %>
+    <%= f.text_field :lesson_name, placeholder: "例）経済学入門" %>
     <br>
     <%= f.label :教員名を正しく入力してください %>
     <br>
-    <%= f.text_field :teacher_name %>
+    <%= f.text_field :teacher_name, placeholder: "例）山下英俊" %>
     <br>
     <%= f.label :年度を半角数字で入力してください（西暦） %>
     <br>
-    <%= f.text_field :academic_year %>
+    <%= f.text_field :academic_year, placeholder: "例）2021" %>
     <br>
     <%= f.select :quarter, [["春学期", "春学期"], ["夏学期", "夏学期"], ["秋学期","秋学期"], ["冬学期","冬学期"], ["前期","前期"], ["後期","後期"], ["通年","通年"], ["集中","集中"], ["その他","その他"]], include_blank: "開講区分を選択してください" %>
     <br>
-    <%= f.select :day7, [["月", "月"], ["火", "火"], ["水","水"], ["木","木"], ["金","金"], ["土","土"], ["日","日"], ["その他","その他"]], include_blank: "曜日を選択して下さい" %>
+    <%= f.select :day7, [["月", "月"], ["火", "火"], ["水","水"], ["木","木"], ["金","金"], ["土","土"], ["日","日"], ["その他","その他"]], include_blank: "曜日を選択して下さい(週２の場合は１日目を選択)" %>
     <br>
     <%= f.select :period, [["1", "1"], ["2", "2"], ["3","3"], ["4","4"], ["5","5"], ["6","6"], ["その他", "7"]], include_blank: "時限を選択して下さい" %>
   </div>
-  <%= f.submit "投稿する" %>
+  <div class="post-btn">
+   <%= f.submit "投稿", class: 'search-btn' %>
+  </div>
 <% end %>
-<%= link_to "Lesson一覧", lessons_path %>
+</div>
+

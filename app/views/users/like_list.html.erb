@@ -1,13 +1,85 @@
-<h1>like_list</h1>
-<h2>登録授業一覧</h2>
-<% @user.like_lessons.each do |t| %>
-  <div class=lesson>
-  講義名:<%= t.lesson_name %>
-  年度:<%= t.academic_year %>
-  開講区分:<%= t.quarter %>
-  曜日:<%= t.day7 %>
-  担当:<%= t.teacher_name %>
-  <%= link_to "授業詳細", lesson_path(t.id) %>
-  </div>
-  
+<div class=user-show-body>
+<br>
+<%= link_to "講義一覧に戻る", lessons_path %>
+<%= link_to "通知一覧", notifications_index_path %>
+<% unless current_user.id == @user.id  %>
+  <%= link_to "マイページへ", user_path(current_user.id) %>
+<% else %>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
+<% end %> 
+<% if current_user.id == @user.id %>
+  <%= link_to "編集する", edit_user_registration_path %>
 <% end %>
+<br>
+
+<% if @user.image? %>
+  <%= image_tag @user.image.url, :size => '100x100', class: "image" %>
+<% else %>
+  <%= image_tag "/assets/default.jpg", :size => '100x100', class: "image" %>
+<% end %>
+
+<% if @user.id == current_user.id %>
+  <p><%= link_to "DM", rooms_path %></p>
+<% else %>
+  <% if @isRoom == true %>
+    <p><a href="/rooms/<%= @roomId %>">チャットへ</a></p>
+  <% else %>
+    <%= form_for @room do |f| %>
+      <%= fields_for @entry do |e| %>
+        <%= e.hidden_field :user_id, :value=> @user.id %>
+      <% end %>
+      <p><%= f.submit "チャットを始める" %></p>
+    <% end %>
+  <% end %>
+<% end %>
+<br>
+<% unless @user == current_user %>
+  <% if current_user.following?(@user) %>
+    <p><%= link_to 'フォロー中', unfollow_path(@user.id), class: 'search-btn', data: { confirm: "フォローを外してよろしいですか" }, method: :POST %>
+  <% else %>
+    <p><%= link_to 'フォロー', follow_path(@user.id), class: 'search-btn', method: :POST %>
+  <% end %>
+
+  <% if @user.following?(current_user) %>
+    <%= 'フォローされています' %></p>
+  <% else %>
+    
+  <% end %>
+<% end %>
+</p>
+
+<h3><%= @user.name %></h3>
+<h5 class="pro"><%= @user.profile %></h5>
+<br>
+<%= "#{@user.follower.count}:" %><%= link_to 'フォロー', following_users_path(@user.id) %>
+
+<%= "#{@user.followed.count}:" %><%= link_to 'フォロワー', followed_users_path(@user.id) %>
+<br>
+
+<br>
+<div class="follow-box">
+  <%= link_to '投稿一覧', lesson_list_path(@user.id), class: 'follow-on' %>
+  <%= link_to '登録授業一覧', like_list_path(@user.id), class: 'follow-off' %>
+</div>
+</div>
+<div class="lessons-container">
+<% @user.like_lessons.each do |t| %>
+  <%= link_to lesson_path(t.id) do %>
+  <div class="lesson">
+  <div class="l-wrapper_06">
+  <div class="card_06">
+  <br>
+  <p class="lesson-line">年度:<%= t.academic_year %></p>
+  <p class="lesson-line">開講区分:<%= t.quarter %></p>
+  <p class="lesson-line">講義名:<%= t.lesson_name %></p>
+  <p class="lesson-line">教員名:<%= t.teacher_name %></p>
+  <p class="lesson-line">曜日:<%= t.day7 %></p>
+  <p class="lesson-line">時限:<%=t.period %></p>
+  <br>
+  <%= link_to "", lesson_path(t.id) %>
+  </div>
+  </div>
+  </div>
+  <% end %>
+<% end %>
+</div>

@@ -6,9 +6,9 @@
   <% if e.user_id != current_user.id %>
     <h3>
     <% if e.user.image? %>
-      <%= image_tag e.user.image.url, :size => '30x30' %>
+      <%= image_tag e.user.image.url, :size => '30x30', class: "image" %>
     <% else %>
-      <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+      <%= image_tag "/assets/default.jpg", :size => '30x30', class: "image" %>
     <% end %>
       <strong><a href="/users/<%= e.user.id %>"><%= e.user.name%></a></strong>
     </h3>
@@ -20,9 +20,9 @@
   <% @messages.each do |m| %>
     <% if m.user_id != current_user.id %>
     <% if m.user.image? %>
-      <%= image_tag m.user.image.url, :size => '30x30' %>
+      <%= image_tag m.user.image.url, :size => '30x30', class: "image" %>
     <% else %>
-      <%= image_tag "/assets/default.jpg", :size => '30x30' %>
+      <%= image_tag "/assets/default.jpg", :size => '30x30', class: "image" %>
     <% end %>
       <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %>さん</a></strong></small>
     <% end %>
